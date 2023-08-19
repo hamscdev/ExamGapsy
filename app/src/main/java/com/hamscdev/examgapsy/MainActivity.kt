@@ -44,6 +44,7 @@ class MainActivity : AppCompatActivity() , OnQueryTextListener {
         searchView = findViewById(R.id.searchView)
         searchView.setOnQueryTextListener(this)
 
+        vM.onCreate()
         vM.model.observe(this, Observer {
             recycleView.adapter = adapterList(this, it)
             list = it

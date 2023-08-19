@@ -17,7 +17,7 @@ class ViewModelMain: ViewModel(){
 
     fun onCreate(){
         viewModelScope.launch {
-            val result = uc.invoke(word = "computer", page = 1)
+            val result = uc.invoke(word = "sony", page = 1)
             if (!result.isNullOrEmpty()){
                 model.postValue(result!!)
             }
@@ -28,9 +28,7 @@ class ViewModelMain: ViewModel(){
     fun onCreateSearch(word: String){
         viewModelScope.launch {
             val result = uc.invoke(word = word, page = 1)
-            Log.e("Resultado onCreate", result.toString())
             if (!result.isNullOrEmpty()){
-                Log.e("Resultado onCreate", result.toString())
                 model.postValue(result!!)
             }
         }
