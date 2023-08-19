@@ -3,6 +3,7 @@ package com.hamscdev.examgapsy
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
+import android.view.WindowManager
 import androidx.activity.viewModels
 import androidx.appcompat.widget.SearchView
 import androidx.appcompat.widget.SearchView.OnQueryTextListener
@@ -21,35 +22,35 @@ class MainActivity : AppCompatActivity() , OnQueryTextListener {
     lateinit var recycleView: RecyclerView
     lateinit var searchView: SearchView
 
-     lateinit var adapterList: adapterList
-     lateinit var list: List<ItemX>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        getWindow().addFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
         setContentView(R.layout.activity_main)
 
         initial()
+    }
+
+    override fun onDestroy() {
+        super.onDestroy()
+        getWindow().clearFlags(WindowManager.LayoutParams.FLAG_KEEP_SCREEN_ON)
     }
 
 
 
 
     fun initial(){
-
-        list = emptyList()
         recycleView = findViewById(R.id.recyclerView)
-        recycleView.layoutManager = LinearLayoutManager(this)
-        adapterList = adapterList(this, list)
+
         searchView = findViewById(R.id.searchView)
         searchView.setOnQueryTextListener(this)
 
         vM.onCreate()
         vM.model.observe(this, Observer {
+            recycleView.layoutManager = LinearLayoutManager(this)
             recycleView.adapter = adapterList(this, it)
-            list = it
-            adapterList.notifyDataSetChanged()
-
         })
     }
 
