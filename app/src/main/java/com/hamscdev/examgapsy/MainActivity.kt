@@ -10,6 +10,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.hamscdev.examgapsy.adapter.adapterList
+import com.hamscdev.examgapsy.data.model.ItemX
 import com.hamscdev.examgapsy.ui.ViewModelMain
 
 class MainActivity : AppCompatActivity() , OnQueryTextListener {
@@ -20,7 +21,8 @@ class MainActivity : AppCompatActivity() , OnQueryTextListener {
     lateinit var recycleView: RecyclerView
     lateinit var searchView: SearchView
 
-
+     lateinit var adapterList: adapterList
+     lateinit var list: List<ItemX>
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,21 +36,29 @@ class MainActivity : AppCompatActivity() , OnQueryTextListener {
 
 
     fun initial(){
+
+        list = emptyList()
         recycleView = findViewById(R.id.recyclerView)
+        recycleView.layoutManager = LinearLayoutManager(this)
+        adapterList = adapterList(this, list)
         searchView = findViewById(R.id.searchView)
         searchView.setOnQueryTextListener(this)
+
         vM.model.observe(this, Observer {
-            recycleView.layoutManager = LinearLayoutManager(this)
             recycleView.adapter = adapterList(this, it)
+            list = it
+            adapterList.notifyDataSetChanged()
+
         })
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
+        vM.onCreateSearch(query.toString())
        return false
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        vM.onCreateSearch(newText.toString())
+
         return false
     }
 

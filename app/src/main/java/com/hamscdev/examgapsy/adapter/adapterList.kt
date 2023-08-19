@@ -9,9 +9,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.hamscdev.examgapsy.R
-import com.hamscdev.examgapsy.data.model.ItemStack
+import com.hamscdev.examgapsy.data.model.ItemX
 
-class adapterList(val context: Context, val list: List<ItemStack>): RecyclerView.Adapter<adapterList.ViewHolder>() {
+
+class adapterList(val context: Context, val list: List<ItemX>): RecyclerView.Adapter<adapterList.ViewHolder>() {
 
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): adapterList.ViewHolder {
@@ -31,14 +32,13 @@ class adapterList(val context: Context, val list: List<ItemStack>): RecyclerView
         val price = itemView.findViewById<TextView>(R.id.price)
         val image = itemView.findViewById<ImageView>(R.id.imageView)
 
-        fun render(item: ItemStack, context: Context){
+        fun render(item: ItemX, context: Context){
 
-            item.items.forEach { it ->
-                title.setText(it.image)
-                price.setText(it.price.toString())
-                Glide.with(context).load(it.image).into(image)
+                title.setText(item.name)
+                price.setText("$ "+item.price.toString())
+                Glide.with(context).load(item.image).into(image)
 
-            }
+
 
         }
 
