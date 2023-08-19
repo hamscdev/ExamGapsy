@@ -9,13 +9,25 @@
 
     <androidx.appcompat.widget.SearchView
         android:id="@+id/searchView"
+        android:layout_marginTop="5dp"
         android:layout_width="match_parent"
-        android:layout_height="25dp" >
+        android:layout_height="50dp" >
 
     </androidx.appcompat.widget.SearchView>
+
+
+    <ProgressBar
+        android:id="@+id/progress_bar"
+        style="?android:progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        />
     <androidx.recyclerview.widget.RecyclerView
         android:layout_width="match_parent"
+        android:layout_marginTop="10dp"
         android:id="@+id/recyclerView"
+        android:padding="15dp"
         android:layout_height="match_parent">
 
     </androidx.recyclerview.widget.RecyclerView>
